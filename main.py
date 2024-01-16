@@ -26,9 +26,13 @@ def schätzen():
 
 
     while lange > 0:
-        schätzung = int(input(
-            f"""Hallo {teilnehmer[a]}, gib bitte deine Schätzung als Ganzzahl aus der Fibunacci-Folge ein und bestätige mit 'Enter'
+        while True:
+            try:
+                schätzung = int(input(f"""Hallo {teilnehmer[a]}, gib bitte deine Schätzung als Ganzzahl aus der Fibunacci-Folge ein und bestätige mit 'Enter'
 > """))
+                break
+            except ValueError:
+                print("Fehler: Bitte geben Sie eine Zahl ein.")
 
         if schätzung in fibunacci_folge:
             schätzungenliste.append(schätzung)
