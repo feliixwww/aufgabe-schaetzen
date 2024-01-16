@@ -17,16 +17,51 @@ while i > 0:
     fibunacci_folge.append(zahl)
     i = i - 1
 
-lange = len(teilnehmer)
-a = 0
-schätzungenliste = []
 
-while lange > 0:
-    schätzung = int(input(f"Hallo {teilnehmer[a]}, gibt bitte deine Schätzung als Ganzzahl aus der Fibonacci-Folge ein und bestätige mit <Enter>."))
+def schätzen():
+    lange = len(teilnehmer)
+    a = 0
+    global schätzungenliste
+    schätzungenliste = []
 
-    if schätzung in fibunacci_folge:
-        schätzungenliste.append(schätzung)
-        lange - 1
-        a = a + 1
-        if a == lange:
-            break
+
+    while lange > 0:
+        schätzung = int(input(
+            f"""Hallo {teilnehmer[a]}, gib bitte deine Schätzung als Ganzzahl aus der Fibunacci-Folge ein und bestätige mit 'Enter'
+> """))
+
+        if schätzung in fibunacci_folge:
+            schätzungenliste.append(schätzung)
+            lange - 1
+            a = a + 1
+            if a == lange:
+                break
+        else:
+            print("Die zahl ist nicht in der Fibunacci-Folge!")
+
+schätzen()
+
+TN_1 = schätzungenliste[0]
+Anzahl_Teilnehmer = (len(schätzungenliste))
+i = 0
+a = 1
+while Anzahl_Teilnehmer > i:
+    if TN_1 != schätzungenliste[a]:
+        print(F"""Eure Schätzwerte sind: {schätzungenliste}
+Diskutiert die Komplexität und möglichen Risiken der Umsetzung und gebt eure Schätzung erneut ein!""")
+        schätzen()
+        break
+    a += 1
+    if a == Anzahl_Teilnehmer:
+        break
+    i += 1
+def E_Schätzen():
+    Erneut_Schätzen = input(F"""Ihr habt das Feature mit {TN_1} Storypoints bewertet!
+Wollt ihr ein weiteres Feature schätzen? (y/n)""")
+    if Erneut_Schätzen == "n":
+        quit()
+    elif Erneut_Schätzen == "y":
+        schätzen()
+    else:
+        E_Schätzen()
+E_Schätzen()

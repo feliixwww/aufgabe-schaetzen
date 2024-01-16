@@ -1,4 +1,4 @@
-Schätzungsliste = []
+
 TN_1 = Schätzungsliste[0]
 Anzahl_Teilnehmer = (len(Schätzungsliste)
 i = 0
