@@ -1,71 +1,89 @@
 teilnehmer = []
 
-while True:
-    eingabe = input("""Bitte gib deinen Namen ein und bestätige mit 'Enter', wenn alle Teilnehmer ihren Namen eingetragen haben, drücke nur 'Enter'
-    > """)
-    if eingabe == "":
-        break
-    teilnehmer.append(eingabe)
 
-print("Die Namen der Teilnehmer sind:", teilnehmer)
+def teilnehmerabfrage():
+    while True:
+        eingabe = input("""Bitte gib deinen Namen ein und bestätige mit 'Enter', wenn alle Teilnehmer ihren Namen
+eingetragen haben, drücke nur 'Enter'
+    > """)
+        if eingabe == "":
+            if len(teilnehmer) < 2:
+                teilnehmerabfrage()
+            break
+        teilnehmer.append(eingabe)
+
+
+teilnehmerabfrage()
+
+
+print(f"""
+Die Namen der Teilnehmer sind:, {teilnehmer}""")
 
 fibunacci_folge = [0, 1, 1]
-i = 100
+fibunacci_wiederholungen = 100
 
-while i > 0:
+while fibunacci_wiederholungen > 0:
     zahl = fibunacci_folge[-1] + fibunacci_folge[-2]
     fibunacci_folge.append(zahl)
-    i = i - 1
+    fibunacci_wiederholungen = fibunacci_wiederholungen - 1
 
 
-def schätzen():
+def schaetzen():
     lange = len(teilnehmer)
-    a = 0
-    global schätzungenliste
-    schätzungenliste = []
-
+    teilnehmer_position_in_der_liste = 0
+    global schaetzungenliste
+    schaetzungenliste = []
 
     while lange > 0:
         while True:
             try:
-                schätzung = int(input(f"""Hallo {teilnehmer[a]}, gib bitte deine Schätzung als Ganzzahl aus der Fibunacci-Folge ein und bestätige mit 'Enter'
+                schaetzung = int(input(f"""
+Hallo {teilnehmer[teilnehmer_position_in_der_liste]}, gib bitte deine Schätzung als Ganzzahl aus der
+Fibunacci-Folge ein und bestätige mit 'Enter'
 > """))
                 break
             except ValueError:
                 print("Fehler: Bitte geben Sie eine Zahl ein.")
 
-        if schätzung in fibunacci_folge:
-            schätzungenliste.append(schätzung)
+        if schaetzung in fibunacci_folge:
+            schaetzungenliste.append(schaetzung)
             lange - 1
-            a = a + 1
-            if a == lange:
+            teilnehmer_position_in_der_liste = teilnehmer_position_in_der_liste + 1
+            if teilnehmer_position_in_der_liste == lange:
                 break
         else:
             print("Die zahl ist nicht in der Fibunacci-Folge!")
 
-schätzen()
+    global TN_1
+    TN_1 = schaetzungenliste[0]
+    anzahl_teilnehmer = (len(schaetzungenliste))
+    wiederholung_vergleich = 0
+    schaetzungsindex = 1
+    while anzahl_teilnehmer > wiederholung_vergleich:
+        if TN_1 != schaetzungenliste[schaetzungsindex]:
+            print(f"""Eure Schätzwerte sind: {schaetzungenliste}
+Diskutiert die Komplexität und möglichen Risiken der Umsetzung und gebt eure Schätzung erneut ein!
+""")
+            schaetzen()
+        schaetzungsindex += 1
+        if schaetzungsindex == anzahl_teilnehmer:
+            break
+        wiederholung_vergleich += 1
+    erneut_def_schaetzen()
 
-TN_1 = schätzungenliste[0]
-Anzahl_Teilnehmer = (len(schätzungenliste))
-i = 0
-a = 1
-while Anzahl_Teilnehmer > i:
-    if TN_1 != schätzungenliste[a]:
-        print(F"""Eure Schätzwerte sind: {schätzungenliste}
-Diskutiert die Komplexität und möglichen Risiken der Umsetzung und gebt eure Schätzung erneut ein!""")
-        schätzen()
-        break
-    a += 1
-    if a == Anzahl_Teilnehmer:
-        break
-    i += 1
-def E_Schätzen():
-    Erneut_Schätzen = input(F"""Ihr habt das Feature mit {TN_1} Storypoints bewertet!
-Wollt ihr ein weiteres Feature schätzen? (y/n)""")
-    if Erneut_Schätzen == "n":
+
+def erneut_def_schaetzen():
+    erneut_schaetzen = input(f"""
+Ihr habt das Feature mit {TN_1} Storypoints bewertet!
+Wollt ihr ein weiteres Feature schätzen? (y/n)
+> """)
+    if erneut_schaetzen == "n":
         quit()
-    elif Erneut_Schätzen == "y":
-        schätzen()
+    elif erneut_schaetzen == "y":
+        schaetzen()
     else:
-        E_Schätzen()
-E_Schätzen()
+        erneut_def_schaetzen()
+
+
+schaetzen()
+
